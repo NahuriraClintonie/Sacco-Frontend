@@ -16,6 +16,6 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>pages/authenticate/register.xhtml</welcome-file>
+        <welcome-file>pages/authenticate/login.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>
