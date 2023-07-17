@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Kimwanyi Login</title>
+    <h:outputStylesheet name="css/App.css" />
+</h:head>
+<h:body>
+    <div class="center-form">
+        <div class="form-container">
+            <!-- <div class="logo"></div> -->
+            <h3>Kimwanyi Sacco Login</h3><br/>
+            <!-- <h:outputLabel value="Kimwanyi Sacco Login"/> -->
+            <h:form>
+                <!-- Your form inputs go here -->
+                <div class="form-input">
+                    <h:outputLabel for="username" value="Username:" />
+                    <p:inputText id="username" placeholder="Username" />
+                </div>
+                <div class="form-input">
+                    <h:outputLabel for="password" value="Password:" />
+                    <p:password id="password" placeholder="Password" togglemask="true" />
+                </div>
+                <p:commandButton value="Login" output = "/pages/dashboard/Dashboard.xhtml" styleClass="blue-button" /><br/>
+                <h:outputText value="Don't have an account? " />
+                <h:outputLink value="/pages/authenticate/register.xhtml" styleClass="register-link">Register here</h:outputLink>
+            </h:form>
+        </div>
+    </div>
+</h:body>
+</html>
