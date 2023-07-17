@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Register Form</title>
+    <h:outputStylesheet name="css/App.css" />
+</h:head>
+<h:body>
+    <div class="center-form">
+        <div class="register-form-container">
+            <!-- <div class="logo"></div> -->
+            <h:form>
+                <div class="register-form-input">
+                    <h:outputLabel for="username" value="Username:" />
+                    <h:inputText id="username" placeholder="Username" />
+                </div>
+                <div class="register-form-input">
+                    <h:outputLabel for="password" value="Password:" />
+                    <h:inputSecret id="password" placeholder="Password" />
+                </div>
+                <div class="register-form-input">
+                    <h:outputLabel for="confirmPassword" value="Confirm Password:" />
+                    <h:inputSecret id="confirmPassword" placeholder="Confirm Password" />
+                </div>
+                <div class="register-form-input">
+                    <h:outputLabel for="dateOfBirth" value="Date of Birth:" />
+                    <h:inputText id="dateOfBirth" type="date" />
+                </div>
+                <div class="register-form-input">
+                    <h:outputLabel value="Gender:" />
+                    <h:selectOneRadio id="gender" value="gender">
+                        <f:selectItem itemValue="male" itemLabel="Male" />
+                        <f:selectItem itemValue="female" itemLabel="Female" />
+                    </h:selectOneRadio>
+                </div>
+                <div class="register-form-input">
+                    <h:outputLabel for="district" value="District:" />
+                    <div class="select-wrapper">
+                        <h:selectOneMenu id="district" value="District">
+                            <f:selectItem itemValue="Kampala" itemLabel="Kampala" />
+                            <f:selectItem itemValue="Wakiso" itemLabel="Wakiso" />
+                            <f:selectItem itemValue="Mukono" itemLabel="Mukono" />
+                            <f:selectItem itemValue="Mityana" itemLabel="Mityana" />
+                            <!-- Add more districts as needed -->
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+                <div class="register-form-input">
+                    <h:outputLabel for="address" value="Physical Address:" />
+                    <h:inputText id="daddress" />
+                </div>
+                <div class="register-form-input button-wrapper">
+                    <h:commandButton value="Register" styleClass="blue-button" />
+                </div>
+            </h:form>
+        </div>
+    </div>
+</h:body>
+</html>
