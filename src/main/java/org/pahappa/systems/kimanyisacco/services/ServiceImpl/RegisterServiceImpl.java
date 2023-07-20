@@ -2,6 +2,7 @@ package org.pahappa.systems.kimanyisacco.services.ServiceImpl;
 
 import org.pahappa.systems.kimanyisacco.dao.RegisterDao;
 import org.pahappa.systems.kimanyisacco.models.Register;
+
 // import org.pahappa.systems.kimanyisacco.models.User;
 import org.pahappa.systems.kimanyisacco.services.RegisterService;
 

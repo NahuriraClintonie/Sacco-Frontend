@@ -1,5 +1,7 @@
 package org.pahappa.systems.kimanyisacco.views.authentication;
 
+import java.io.IOException;
+
 // import java.io.IOException;
 
 import javax.faces.bean.ManagedBean;
@@ -10,6 +12,7 @@ import javax.faces.context.FacesContext;
 
 import org.pahappa.systems.kimanyisacco.controllers.Hyperlinks;
 import org.pahappa.systems.kimanyisacco.models.User;
+import org.pahappa.systems.kimanyisacco.services.ServiceImpl.LoginServiceImpl;
 
 @ManagedBean(name="loginForm")
 @SessionScoped
@@ -29,32 +32,30 @@ public class LoginForm {
     }
 
      public void login() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = facesContext.getExternalContext();
-        String requestContext = externalContext.getRequestContextPath();
-
-        try {
-            // System.out.println(requestContext);
-            // System.out.println(Hyperlinks.dashboard);
-            externalContext.redirect(requestContext+Hyperlinks.dashboard);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        LoginServiceImpl loginService = new LoginServiceImpl();
+        if (loginService.authenticate(user.getUsername(), user.getPassword())) {
+            // System.out.println(user.getUsername());
+            // System.out.println(user.getPassword());
+            // System.out.println("No connection occured");
+            // Successful login, redirect to the dashboard
+            redirectToPage(Hyperlinks.dashboard);
+        } else {
+            // Unsuccessful login, redirect back to the login page
+            // System.out.println(user.getUsername());
+            // System.out.println(user.getPassword());
+            redirectToPage(Hyperlinks.login);
         }
     }
 
-    public void DoLogin() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        ExternalContext externalContext = facesContext.getExternalContext();
-        String requestContext = externalContext.getRequestContextPath();
-
+    private void redirectToPage(String page) {
         try {
-            // System.out.println(requestContext);
-            // System.out.println(Hyperlinks.dashboard);
-            externalContext.redirect(requestContext+Hyperlinks.login);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            ExternalContext externalContext = facesContext.getExternalContext();
+            String requestContext = externalContext.getRequestContextPath();
+            System.out.println(requestContext + page);
+            externalContext.redirect(requestContext + page);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
-
 }

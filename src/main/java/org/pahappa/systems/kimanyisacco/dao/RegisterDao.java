@@ -7,6 +7,7 @@ import org.pahappa.systems.kimanyisacco.config.SessionConfiguration;
 import org.pahappa.systems.kimanyisacco.models.Register;
 
 public class RegisterDao {
+
     public void registerUser(Register register) {
         Transaction transaction = null;
         try {
