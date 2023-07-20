@@ -12,19 +12,21 @@
             <!-- <div class="logo"></div> -->
             <h3>Kimwanyi Sacco Login</h3><br/>
             <!-- <h:outputLabel value="Kimwanyi Sacco Login"/> -->
+            
             <h:form>
                 <!-- Your form inputs go here -->
                 <div class="form-input">
                     <h:outputLabel for="username" value="Username:" />
-                    <p:inputText id="username" placeholder="Username" />
+                    <p:inputText id="username" placeholder="Username" value="#{loginForm.user.username}" />
                 </div>
                 <div class="form-input">
                     <h:outputLabel for="password" value="Password:" />
-                    <p:password id="password" placeholder="Password" togglemask="true" />
+                    <p:password id="password" placeholder="Password" value="#{loginForm.user.password}"/>
                 </div>
-                <p:commandButton value="Login" output = "/pages/dashboard/Dashboard.xhtml" styleClass="blue-button" /><br/>
+                <p:commandButton value="Login" action = "#{loginForm.login()}" styleClass="blue-button" /><br/>
                 <h:outputText value="Don't have an account? " />
-                <h:outputLink value="/pages/authenticate/register.xhtml" styleClass="register-link">Register here</h:outputLink>
+                <!-- <h:outputLink outcome="sacco/pages/authenticate/register.xhtml" styleClass="register-link">Register here</h:outputLink> -->
+                <h:link outcome="/pages/authenticate/register.xhtml" value="Register here" styleClass="register-link" />
             </h:form>
         </div>
     </div>

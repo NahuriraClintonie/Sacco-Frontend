@@ -14,23 +14,23 @@
             <h:form>
                 <div class="register-form-input">
                     <h:outputLabel for="username" value="Username:" />
-                    <h:inputText id="username" placeholder="Username" />
+                    <h:inputText id="username" placeholder="Username" value="#{registerBean.register.username}"/>
                 </div>
                 <div class="register-form-input">
                     <h:outputLabel for="password" value="Password:" />
-                    <h:inputSecret id="password" placeholder="Password" />
+                    <h:inputSecret id="password" placeholder="Password" value="#{registerBean.register.password}"/>
                 </div>
                 <div class="register-form-input">
                     <h:outputLabel for="confirmPassword" value="Confirm Password:" />
-                    <h:inputSecret id="confirmPassword" placeholder="Confirm Password" />
+                    <h:inputSecret id="confirmPassword" placeholder="Confirm Password" value="#{registerBean.register.confirmPassword}"/>
                 </div>
                 <div class="register-form-input">
                     <h:outputLabel for="dateOfBirth" value="Date of Birth:" />
-                    <h:inputText id="dateOfBirth" type="date" />
+                    <h:inputText id="dateOfBirth" type="date" value="#{registerBean.register.dateOfBirth}"/>
                 </div>
                 <div class="register-form-input">
                     <h:outputLabel value="Gender:" />
-                    <h:selectOneRadio id="gender" value="gender">
+                    <h:selectOneRadio id="gender" value="#{registerBean.register.gender}">
                         <f:selectItem itemValue="male" itemLabel="Male" />
                         <f:selectItem itemValue="female" itemLabel="Female" />
                     </h:selectOneRadio>
@@ -38,7 +38,7 @@
                 <div class="register-form-input">
                     <h:outputLabel for="district" value="District:" />
                     <div class="select-wrapper">
-                        <h:selectOneMenu id="district" value="District">
+                        <h:selectOneMenu id="district" value="#{registerBean.register.district}">
                             <f:selectItem itemValue="Kampala" itemLabel="Kampala" />
                             <f:selectItem itemValue="Wakiso" itemLabel="Wakiso" />
                             <f:selectItem itemValue="Mukono" itemLabel="Mukono" />
@@ -48,11 +48,11 @@
                     </div>
                 </div>
                 <div class="register-form-input">
-                    <h:outputLabel for="address" value="Physical Address:" />
-                    <h:inputText id="daddress" />
+                    <h:outputLabel for="physicalAddress" value="Physical Address:" />
+                    <h:inputText id="physicalAddress" value="#{registerBean.register.physicalAddress}"/>
                 </div>
                 <div class="register-form-input button-wrapper">
-                    <h:commandButton value="Register" styleClass="blue-button" />
+                    <h:commandButton value="Register" styleClass="blue-button" action="#{registerBean.registerUser}" />
                 </div>
             </h:form>
         </div>

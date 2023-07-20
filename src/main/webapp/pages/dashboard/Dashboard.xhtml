@@ -30,8 +30,34 @@
         <div class="content-container">
             <ui:insert name="content">
                 <ui:include src="/template/Content.xhtml" />
+
+<h:form>
+    <div class="card">
+        <p:dataTable var="user" value="#{userBean.users}" id="userTable">
+            <p:column headerText="Name">
+                <h:outputText value="#{user.username}" />
+            </p:column>
+
+            <p:column headerText="Password">
+                <h:outputText value="#{user.password}" />
+            </p:column>
+
+            <p:column headerText="Action">
+                <h:panelGroup>
+                    <p:commandButton action="#{userBean.deleteUser(user)}" value="Delete" actstyleClass="blue-button" />
+                    <p:commandButton action="#{loginForm.DoLogin()}" actionListener="#{loginForm.setUser(user)}" value="Edit" styleClass="blue-button" />
+                    <!-- <span class="material-icons">check_circle</span>
+                    <span class="material-icons">cancel</span> -->
+                </h:panelGroup>
+            </p:column>
+
+            
+        </p:dataTable>
+    </div>
+</h:form>
             </ui:insert>
         </div>
+
 
         <!-- footer included here -->
         <div class="footer-container">
