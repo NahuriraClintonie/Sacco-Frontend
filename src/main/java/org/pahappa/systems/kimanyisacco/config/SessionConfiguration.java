@@ -2,8 +2,9 @@ package org.pahappa.systems.kimanyisacco.config;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
-import org.pahappa.systems.kimanyisacco.models.Register;
-// import org.hibernate.cfg.AnnotationConfiguration;
+import org.pahappa.systems.kimanyisacco.models.Account;
+import org.pahappa.systems.kimanyisacco.models.User;
+import org.pahappa.systems.kimanyisacco.models.Transactions;
 
 public class SessionConfiguration {
 
@@ -15,7 +16,10 @@ public class SessionConfiguration {
             configuration.configure(); // Loads hibernate.cfg.xml configuration
 
             // Add annotated classes here
-            configuration.addAnnotatedClass(Register.class);
+            configuration.addAnnotatedClass(User.class);
+            configuration.addAnnotatedClass(Transactions.class);
+            configuration.addAnnotatedClass(Account.class);
+
             return configuration.buildSessionFactory();
         } catch (Throwable ex) {
             System.err.println("Failed to create SessionFactory: " + ex);

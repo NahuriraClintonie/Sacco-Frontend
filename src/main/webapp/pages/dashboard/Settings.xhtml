@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <title>Register Form</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        background-color: #ffffff; /* White background color */
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Center the form */
+    .center-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #ffffff;
+    }
+
+    /* Container for the form */
+    .form-container {
+        width: 400px;
+        background-color: #f9f9f9; /* Light grey background color for the form */
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style for the input labels */
+    .form-input label {
+        font-weight: bold;
+    }
+
+    /* Style for the input fields */
+    .form-input input[type="text"],
+    .form-input input[type="password"],
+    .form-input input[type="date"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    /* Style for the dropdown menu */
+    .form-input select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+        appearance: none; /* Remove default arrow */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+
+    /* Style for the dropdown arrow */
+    .form-input select::after {
+        content: "▼"; /* Custom arrow */
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: #ccc; /* Color for the arrow */
+    }
+
+    /* Style for the Save Changes button */
+    .button-wrapper {
+        text-align: right;
+    }
+
+    .blue-button {
+        background-color: #007bff; /* Blue color for the button */
+        color: #fff; /* White text color */
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .blue-button:hover {
+        background-color: #0056b3; /* Slightly darker shade on hover */
+    }
+
+    .footer-container {
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+        width: 100%; /* Make the footer occupy full width */
+        bottom: 0; /* Position the footer at the bottom */
+        left: 0;
+    }
+    </style>
+    
+</h:head>
+<h:body>
+    <h:panelGroup rendered="#{not empty sessionScope.loggedInUser}">
+    <div class="header-container">
+        <ui:insert name="header">
+            <ui:include src="/template/Header.xhtml" />
+        </ui:insert>
+    </div>
+    <div class="content-container">
+        <ui:insert name="content">
+            <!-- Your content goes here -->
+            <div class="center-form">
+                <div class="form-container">
+                    <!-- <div class="logo"></div> -->
+                    <h:form>
+            <div class="form-input">
+                <h:outputLabel for="username" value="Username:" />
+                <h:inputText id="username"  value="#{userSettings.username}" />
+            </div>
+            <div class="form-input">
+                <h:outputLabel for="password" value="Password:" />
+                <h:inputSecret id="password"  value="#{userSettings.password}" />
+            </div>
+            <div class="form-input">
+                <h:outputLabel for="email" value="E-mail:" />
+                <h:inputSecret id="email" value="#{userSettings.confirmPassword}" />
+            </div>
+            <div class="form-input">
+                <h:outputLabel for="dateOfBirth" value="Date of Birth:" />
+                <h:inputText id="dateOfBirth" type="date" value="#{userSettings.dateOfBirth}" />
+            </div>
+            <div class="form-input">
+                <h:outputLabel value="Gender:" />
+                <h:selectOneRadio id="gender" value="#{userSettings.gender}">
+                    <f:selectItem itemValue="male" itemLabel="Male" />
+                    <f:selectItem itemValue="female" itemLabel="Female" />
+                </h:selectOneRadio>
+            </div>
+            <div class="form-input">
+                <h:outputLabel for="address" value="Physical Address:" />
+                <h:inputText id="address" value="#{userSettings.address}" />
+            </div>
+            <div class="form-input button-wrapper">
+                <h:commandButton value="Save Changes" styleClass="blue-button" action="#{userSettings.saveChanges}" />
+            </div>
+        </h:form>
+        </div><br/><br/>
+        </div>
+            
+        </ui:insert>
+    </div>
+    
+<div class="footer-container">
+    <ui:insert name="footer">
+        <ui:include src="/template/Footer.xhtml" />
+    </ui:insert>
+</div>
+</h:panelGroup>
+<h:panelGroup rendered="#{empty sessionScope.loggedInUser}">
+        <p>Access Denied!!! Redirecting.......</p>
+        <script>
+            setTimeout(function(){
+                window.location.href = "/sacco"
+            },2000);
+        </script>
+</h:panelGroup>
+</h:body>
+</html>

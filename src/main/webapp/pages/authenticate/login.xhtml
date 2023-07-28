@@ -7,11 +7,12 @@
     <h:outputStylesheet name="css/App.css" />
 </h:head>
 <h:body>
+    <p:growl id="growl" showDetail="true" />
+    <p:growl id="registermessage" showDetail="true" />
     <div class="center-form">
         <div class="form-container">
             <!-- <div class="logo"></div> -->
             <h3>Kimwanyi Sacco Login</h3><br/>
-            <!-- <h:outputLabel value="Kimwanyi Sacco Login"/> -->
             
             <h:form>
                 <!-- Your form inputs go here -->
@@ -23,7 +24,7 @@
                     <h:outputLabel for="password" value="Password:" />
                     <p:password id="password" placeholder="Password" value="#{loginForm.user.password}"/>
                 </div>
-                <p:commandButton value="Login" action = "#{loginForm.login()}" styleClass="blue-button" /><br/>
+                <p:commandButton value="Login" action = "#{loginForm.login()}" styleClass="blue-button" update="growl"/><br/>
                 <h:outputText value="Don't have an account? " />
                 <!-- <h:outputLink outcome="sacco/pages/authenticate/register.xhtml" styleClass="register-link">Register here</h:outputLink> -->
                 <h:link outcome="/pages/authenticate/register.xhtml" value="Register here" styleClass="register-link" />
@@ -32,3 +33,4 @@
     </div>
 </h:body>
 </html>
+

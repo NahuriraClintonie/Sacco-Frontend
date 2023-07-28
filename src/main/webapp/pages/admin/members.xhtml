@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html    xmlns="http://www.w3.org/1999/xhtml"
+         xmlns:h="http://xmlns.jcp.org/jsf/html"
+         xmlns:p="http://primefaces.org/ui"
+         xmlns:f="http://xmlns.jcp.org/jsf/core"
+         xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<head>
+    
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <title>Approved Sacco Members</title>
+        
+        <link rel="stylesheet" href="style.css"/>
+        <link rel="stylesheet" href="responsive.css"/>
+        <h:outputStylesheet name="css/App.css" />
+        <style>
+            /* Styles for the DataTable */
+            .datatable {
+                margin: 20px;
+                text-align: center;
+            }
+    
+            .datatable h3 {
+                font-size: 20px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+    
+            .datatable table {
+                border-collapse: collapse;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+    
+            .datatable th, .datatable td {
+                border: 1px solid #ccc;
+                padding: 8px;
+            }
+    
+            .datatable th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+            }
+    
+            .datatable td {
+                text-align: center;
+            }
+    
+            .datatable .material-icons {
+                cursor: pointer;
+                font-size: 20px;
+                margin-right: 5px;
+            }
+    
+            .datatable .material-icons:hover {
+                color: #2196F3;
+            }
+        </style>
+</head>
+
+<body>  
+
+    <h:form>
+        <div class="main-container">
+            <div class="navcontainer">
+                <nav class="nav">
+                    <div class="nav-upper-options">
+                        <!-- Navigation options here -->
+                        <h:link outcome="/pages/admin/AdminDashboard.xhtml" class="nav-option option1">
+                            <h3>
+                                Dashboard
+                            </h3>
+                        </h:link>
+
+                        <!-- <h:link outcome="/pages/admin/transaction.xhtml" class="nav-option option2">
+                            <h3>
+                                Transactions
+                            </h3>
+                        </h:link> -->
+
+                        <h:link outcome="/pages/admin/members.xhtml" class="nav-option option4">
+                            <h3>
+                                Members
+                            </h3>
+                        </h:link>
+
+                        <!-- <h:link outcome="/pages/admin/WithdrawRequests.xhtml" class="nav-option option6">
+                            <h3>
+                                Withdrawal Requests
+                            </h3>
+                        </h:link> -->
+
+                        <h:link outcome="/pages/authenticate/login.xhtml" class="nav-option logout">
+                            <h3>
+                                Logout
+                            </h3>
+                        </h:link>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="main">
+
+                <div class="box-container">
+                    <!-- <div class="box box1">
+                        <div class="text">
+                            <h2 class="topic-heading">60.5k</h2>
+                            <h2 class="topic">Article Views</h2>
+                        </div>
+                    </div> -->
+
+                    <!-- <div class="box box2">
+                        <div class="text">
+                            <h2 class="topic-heading">150</h2>
+                            <h2 class="topic">Likes</h2>
+                        </div>
+                    </div> -->
+
+                    <div class="box box3">
+                        <div class="text">
+                            <h2 class="topic-heading">#{adminBean.getTotalWithdrawTransactions()}</h2>
+                            <h2 class="topic">Total Withdrawals</h2>
+                        </div>
+                    </div>
+
+                    <div class="box box4">
+                        <div class="text">
+                            <h2 class="topic-heading">#{adminBean.getTotalDepositTransactions()}</h2>
+                            <h2 class="topic">Total Deposits</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="report-container">
+                    <div class="report-header">
+                        <h1 class="recent-Articles">SACCO STATISTICS</h1>
+                    </div>
+                    
+
+                    <div class="report-body">
+                        <div class="report-topic-heading">
+                            <h3 class="t-op">Approved Members</h3>
+                            <h3 class="t-op">Pending Members</h3>
+                            <h3 class="t-op">Total Members</h3>
+                        </div>
+
+                        <div class="items">
+                            <div class="item1">
+                                <h3 class="t-op-nextlvl">#{adminBean.getTotalApprovedUsers()}</h3>
+                                <h3 class="t-op-nextlvl">#{adminBean.getTotalPendingUsers()}</h3>
+                                <h3 class="t-op-nextlvl">#{adminBean.getTotalMembers()}</h3>
+                                
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="datatable">
+                    <h3 class="recent-Articles">TOTAL MEMBERS</h3>
+                    <h:dataTable value="#{adminBean.allAccounts}" var="account">
+        <h:column>
+            <f:facet name="header">NAME</f:facet>
+            <h:outputText value="#{account.user.username}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header">EMAIL</f:facet>
+            <h:outputText value="#{account.user.email}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header">GENDER</f:facet>
+            <h:outputText value="#{account.user.gender}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header">ACCOUNT NUMBER</f:facet>
+            <h:outputText value="#{account.accountNumber}" />
+        </h:column>
+    </h:dataTable>  
+                </div> 
+            </div>
+        </div>
+        
+    </h:form>
+    <h:outputScript library="js" name="index.js"/>
+</body>
+</html>

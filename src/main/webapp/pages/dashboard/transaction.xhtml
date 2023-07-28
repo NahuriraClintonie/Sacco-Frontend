@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+    <title>Transaction</title>
+    <h:outputStylesheet name="primeflex/3.3.1/primeflex.css" library="webjars"/>
+    <h:outputStylesheet name="css/App.css" /> 
+</h:head>
+<style>
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column; /* Make body a flex container with vertical layout */
+  min-height: 100vh;
+
+}
+
+.header-container, .footer-container {
+  padding: 20px;
+  box-sizing: border-box; /* Include padding in the container's total width */
+}
+
+.content-container {
+  flex: 1; /* Allow the content container to grow and fill the available space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box; /* Include padding in the container's total width */
+}
+
+.card-container {
+  width: 100%;
+  max-width: 400px; /* Limit the card's width to ensure it doesn't stretch too much */
+  padding: 20px;
+  background-color: #ffffff; /* White background for the card */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Light shadow effect */
+}
+
+.transaction-form-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.transaction-form-card h:form {
+  width: 100%;
+}
+
+.transaction-form-card h:panelGrid {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.input-label {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #1877f2; /* Facebook blue color */
+}
+
+.input-field {
+  padding: 12px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  font-size: 14px;
+  outline: none; /* Remove focus outline */
+  transition: border-color 0.3s ease-in-out;
+}
+
+/* Style for the focused input field */
+.input-field:focus {
+  border-color: #1877f2; /* Facebook blue color */
+  box-shadow: 0 0 5px rgba(24, 119, 242, 0.5); /* Light shadow on focus */
+}
+
+.p-dropdown {
+  /* Customize PrimeFaces dropdown style here */
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #ffffff; /* White background color */
+  color: #333333; /* Text color */
+  font-size: 14px;
+  width: 100%;
+  cursor: pointer;
+  appearance: none; /* Remove default arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Style for the dropdown arrow */
+.p-dropdown::after {
+  content: "▼"; /* Custom arrow */
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #1877f2; 
+}
+
+.p-dropdown:hover, .p-dropdown:focus {
+  border-color: #1877f2; 
+  box-shadow: 0 0 5px rgba(24, 119, 242, 0.5); /
+}
+
+.p-dropdown option {
+  background-color: #ffffff; 
+  color: #333333; /* Text color */
+  font-size: 14px;
+}
+
+.p-button {
+  background-color: #1877f2; /* Facebook blue color */
+  color: #ffffff; /* White text color */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.p-button:hover {
+  background-color: #3b5998; /* Slightly darker shade on hover */
+}
+
+</style>
+
+<h:body>
+  <h:panelGroup rendered="#{not empty sessionScope.loggedInUser}">
+  <p:growl id="message" showDetail="true"/>
+    <!-- Header included here -->
+    <div class="header-container">
+        <ui:insert name="header">
+            <ui:include src="/template/Header.xhtml" />
+        </ui:insert>
+    </div>
+
+    <!-- Content container with the card -->
+    <div class="content-container">
+        <ui:insert name="content">
+            <div class="card-container">
+                <div class="transaction-form-card">
+                    <h:form>
+                        <h:panelGrid columns="2" columnClasses="input-label, input-field">
+                            <h:outputLabel value="Amount:"/>
+                            <h:inputText value="#{transaction.amount}" required="true" styleClass="p-inputtext"/>
+
+                            <h:outputLabel value="Transaction Type:"/>
+                            <h:selectOneMenu value="#{transaction.transactionType}" styleClass="p-dropdown">
+                                <f:selectItem itemLabel="Deposit" itemValue="Deposit"/>
+                                <f:selectItem itemLabel="Withdraw" itemValue="Withdraw"/>
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+                        <h:commandButton value="Save Transaction" action="#{transaction.saveTransaction}" styleClass="p-button" update="message"/>
+                    </h:form>
+                </div>
+            </div>
+        </ui:insert>
+    </div>
+
+    <!-- Footer included here -->
+    <div class="footer-container">
+        <ui:insert name="footer">
+            <ui:include src="/template/Footer.xhtml" />
+        </ui:insert>
+    </div>
+  </h:panelGroup>
+  <h:panelGroup rendered="#{empty sessionScope.loggedInUser}">
+          <p>Access Denied!!! Redirecting.......</p>
+          <script>
+              setTimeout(function(){
+                  window.location.href = "/sacco"
+              },2000);
+          </script>
+  </h:panelGroup>
+</h:body>
+
+</html>

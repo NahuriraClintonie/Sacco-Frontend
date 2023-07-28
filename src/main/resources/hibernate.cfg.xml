@@ -22,5 +22,10 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
+         <!-- Mapping resource files -->
+        <mapping class="org.pahappa.systems.kimanyisacco.models.User" />
+        <!-- <mapping class="org.pahappa.systems.kimanyisacco.models.Transaction" /> -->
+        <mapping class="org.pahappa.systems.kimanyisacco.models.Account" />
+
     </session-factory>
 </hibernate-configuration>

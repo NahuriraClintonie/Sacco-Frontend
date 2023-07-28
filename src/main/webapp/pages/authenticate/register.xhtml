@@ -10,49 +10,36 @@
 <h:body>
     <div class="center-form">
         <div class="register-form-container">
-            <!-- <div class="logo"></div> -->
             <h:form>
                 <div class="register-form-input">
                     <h:outputLabel for="username" value="Username:" />
-                    <h:inputText id="username" placeholder="Username" value="#{registerBean.register.username}"/>
+                    <h:inputText id="username" placeholder="Username" value="#{registerBean.user.username}"/>
                 </div>
                 <div class="register-form-input">
                     <h:outputLabel for="password" value="Password:" />
-                    <h:inputSecret id="password" placeholder="Password" value="#{registerBean.register.password}"/>
+                    <h:inputSecret id="password" placeholder="Password" value="#{registerBean.user.password}"/>
                 </div>
                 <div class="register-form-input">
-                    <h:outputLabel for="confirmPassword" value="Confirm Password:" />
-                    <h:inputSecret id="confirmPassword" placeholder="Confirm Password" value="#{registerBean.register.confirmPassword}"/>
+                    <h:outputLabel for="email" value="E-mail:" />
+                    <h:inputText id="email" placeholder="email" type="email" value="#{registerBean.user.email}"/>
                 </div>
                 <div class="register-form-input">
                     <h:outputLabel for="dateOfBirth" value="Date of Birth:" />
-                    <h:inputText id="dateOfBirth" type="date" value="#{registerBean.register.dateOfBirth}"/>
+                    <h:inputText id="dateOfBirth" type="date" value="#{registerBean.user.dateOfBirth}"/>
                 </div>
                 <div class="register-form-input">
                     <h:outputLabel value="Gender:" />
-                    <h:selectOneRadio id="gender" value="#{registerBean.register.gender}">
+                    <h:selectOneRadio id="gender" value="#{registerBean.user.gender}">
                         <f:selectItem itemValue="male" itemLabel="Male" />
                         <f:selectItem itemValue="female" itemLabel="Female" />
                     </h:selectOneRadio>
                 </div>
                 <div class="register-form-input">
-                    <h:outputLabel for="district" value="District:" />
-                    <div class="select-wrapper">
-                        <h:selectOneMenu id="district" value="#{registerBean.register.district}">
-                            <f:selectItem itemValue="Kampala" itemLabel="Kampala" />
-                            <f:selectItem itemValue="Wakiso" itemLabel="Wakiso" />
-                            <f:selectItem itemValue="Mukono" itemLabel="Mukono" />
-                            <f:selectItem itemValue="Mityana" itemLabel="Mityana" />
-                            <!-- Add more districts as needed -->
-                        </h:selectOneMenu>
-                    </div>
-                </div>
-                <div class="register-form-input">
                     <h:outputLabel for="physicalAddress" value="Physical Address:" />
-                    <h:inputText id="physicalAddress" value="#{registerBean.register.physicalAddress}"/>
+                    <h:inputText id="physicalAddress" value="#{registerBean.user.physicalAddress}"/>
                 </div>
                 <div class="register-form-input button-wrapper">
-                    <h:commandButton value="Register" styleClass="blue-button" action="#{registerBean.registerUser}" />
+                    <h:commandButton value="Register" styleClass="blue-button" action="#{registerBean.registerUser}" update="registermessage"/>
                 </div>
             </h:form>
         </div>

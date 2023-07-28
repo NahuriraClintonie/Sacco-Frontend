@@ -1,19 +1,21 @@
 package org.pahappa.systems.kimanyisacco.services.ServiceImpl;
 
 import org.pahappa.systems.kimanyisacco.dao.LoginDao;
-import org.pahappa.systems.kimanyisacco.models.Register;
+import org.pahappa.systems.kimanyisacco.models.User;
 
 public class LoginServiceImpl {
+    LoginDao loginDao = new LoginDao();
     public boolean authenticate(String username, String password) {
-        LoginDao loginDao = new LoginDao();
-        Register foundUser = loginDao.findUserByUsernameAndPassword(username, password);
-        // if(!foundUser.equals(null)){
-        //     System.out.println("The user was actually found");
-        //     return true;
-        // }else{
-        //     System.out.println("The user was actually not found");
-        //     return false;
-        // }
+        
+        User foundUser = loginDao.findUserByUsernameAndPassword(username, password);
+        
         return foundUser != null;
+    }
+
+    public User authenticateAndGetUser(String username, String password) {
+        if (authenticate(username, password)) {
+            return loginDao.findUserByUsername(username);
+        }
+        return null;
     }
 }

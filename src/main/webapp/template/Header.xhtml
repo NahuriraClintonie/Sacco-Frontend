@@ -12,35 +12,54 @@
 
 <h:body>
     <header>
-        <nav>
+        
+        <div class="navbar">
             <ul>
                 <li>
-                    <h:link outcome="/pages/dashboard/Dashboard.xhtml">
-                        <i class="pi pi-home"></i>Home
-                    </h:link>
+                    <h:link outcome="#{navigation.getDashboard()}">
+                            <i class="fa fa-home"></i>
+                            <h:outputText value="HOME" escape="false" />
+                        </h:link>
                 </li>
+                <!-- <li>
+                    <h:link outcome="/pages/admin/AdminDashboard.xhtml">
+                            <i class="fa fa-home"></i>
+                            <h:outputText value="Dashboard" escape="false" />
+                        </h:link>
+                </li> -->
                 <li>
-                    <h:link outcome="/pages/dashboard/Deposit.xhtml">
-                        <i class="pi pi-dollar"></i>Deposit
-                    </h:link>
+                   
+                        <h:link outcome="#{navigation.getTransaction()}">
+                            <i class="fa fa-home"></i>
+                            <h:outputText value="TRANSACT" escape="false" />
+                        </h:link>
+                    
                 </li>
-                <li>
-                    <h:link outcome="/pages/dashboard/Withdraw.xhtml">
-                        <i class="pi pi-money-bill"></i>Withdraw
+                <!-- <li>
+                    <h:link outcome="#{navigation.getWithdraw()}">
+                            <i class="fa fa-home"></i>
+                            <h:outputText value="WITHDRAW" escape="false" />
                     </h:link>
+                </li> -->
+                <li>
+               
+                    <h:link outcome="#{navigation.getSettings()}">
+                            <i class="fa fa-home"></i>
+                            <h:outputText value="SETTINGS" escape="false" />
+                    </h:link>
+                
                 </li>
+
                 <li>
-                    <h:link outcome="/pages/dashboard/Settings.xhtml" >
-                        <i class="pi pi-cog"></i>Account Settings
+               
+                    <h:link outcome="#{navigation.getLogin()}">
+                            <i class="fa fa-home"></i>
+                            <h:outputText value="LOGOUT" escape="false" />
                     </h:link>
-                </li>
-                <li>
-                    <h:link outcome="/pages/landing/Landing.xhtml" >
-                        <i class="pi pi-sign-out"></i>Logout
-                    </h:link>
+                
                 </li>
             </ul>
-        </nav>
+        </div>
     </header>
 </h:body>
 

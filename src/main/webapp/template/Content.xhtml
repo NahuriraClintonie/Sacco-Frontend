@@ -16,12 +16,14 @@
         <h:outputStylesheet name="primeflex/3.3.1/primeflex.css" library="webjars"/>
         <h:outputStylesheet name="css/App.css" />
     </f:facet>
+    
 </h:head>
 <h:body>
     <div class="row">
         <div class="card">
-            <h3 class="card-title">ACCOUNT BALANCE</h3>
-            <p class="card-content">$10,000</p>
+            <h3 class="card-title">ACC NO: ACCT-6286</h3>
+            <h3 class="card-title">ACC Bal : 20000.0</h3>
+            <!-- <h:outputText value="Shs. #{sessionScope.loggedInUser.account.accountBalance}" /> -->
         </div>
         <div class="card">
             <h3 class="card-title">RECENT DEPOSIT</h3>
@@ -29,7 +31,8 @@
         </div>
         <div class="card">
             <h3 class="card-title">RECENT WITHDRAW</h3>
-            <p class="card-content">$10,000</p>
+            
+            <p class="card-content">Shs. 1500.0</p>
         </div>
         <div class="card">
             <h3 class="card-title">TOTAL TRANSACTIONS</h3>
@@ -37,84 +40,31 @@
         </div>
     </div>
 
-    <div class="datatable">
-        <h3>REGISTERED MEMBERS</h3>
-        <h:dataTable>
-            <h:column>
-                <f:facet name="header">NAME</f:facet>
-                <h:outputText value="John Doe" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">ACCOUNT NUMBER</f:facet>
-                <h:outputText value="IT" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">DISTRICT</f:facet>
-                <h:outputText value="30" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">GENDER</f:facet>
-                <h:outputText value="5000" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">ACTION</f:facet>
-                <h:panelGroup>
-                    <span class="material-icons">check_circle</span>
-                    <span class="material-icons">cancel</span>
-                </h:panelGroup>
-            </h:column>
-        </h:dataTable> 
-    </div>
-
-    <div class="datatable">
+    <!-- <div class="datatable">
         <h3>RECENT TRANSACTIONS</h3>
-        <h:dataTable>
-            <h:column>
-                <f:facet name="header">NAME</f:facet>
-                <h:outputText value="John Doe" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">DISTRICT</f:facet>
-                <h:outputText value="IT" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">GENDER</f:facet>
-                <h:outputText value="30" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">STATUS</f:facet>
-                <h:outputText value="5000" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">Action</f:facet>
-                <h:panelGroup>
-                    <span class="material-icons">check_circle</span>
-                    <span class="material-icons">cancel</span>
-                </h:panelGroup>
-            </h:column>
-        </h:dataTable> 
-    </div>
-
-    <div class="datatable">
-        <h3>PREVIOUS TRANSACTIONS</h3>
-        <h:dataTable>
-            <h:column>
-                <f:facet name="header">TRANSACTIONS ID</f:facet>
-                <h:outputText value="John Doe" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">TRANSACTIONS TYPE</f:facet>
-                <h:outputText value="IT" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">AMOUNT</f:facet>
-                <h:outputText value="30" />
-            </h:column>
-            <h:column>
-                <f:facet name="header">DATE</f:facet>
-                <h:outputText value="5000" />
-            </h:column>
-        </h:dataTable> 
-    </div>
+        
+        <h:dataTable value="#{transaction.allMembers}" var="account">
+    <h:column>
+        <f:facet name="header">ID</f:facet>
+        <h:outputText value="#{user.id}" />
+    </h:column>
+    <h:column>
+        <f:facet name="header">USERNAME</f:facet>
+        <h:outputText value="#{account.user.username}" />
+    </h:column>
+    <h:column>
+        <f:facet name="header">EMAIL</f:facet>
+        <h:outputText value="#{user.email}" />
+    </h:column>
+    <h:column>
+        <f:facet name="header">TRANSACTION TYPE</f:facet>
+        <h:outputText value="#{user.account.transactions[0].transactionType}" />
+    </h:column>
+    <h:column>
+        <f:facet name="header">AMOUNT</f:facet>
+        <h:outputText value="#{user.account.transactions[0].amount}" />
+    </h:column>
+</h:dataTable>
+    </div> -->
 </h:body>
 </html>
