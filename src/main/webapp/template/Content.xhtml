@@ -21,50 +21,47 @@
 <h:body>
     <div class="row">
         <div class="card">
-            <h3 class="card-title">ACC NO: ACCT-6286</h3>
-            <h3 class="card-title">ACC Bal : 20000.0</h3>
+            <h3 class="card-title">ACC NO: #{loginForm.getAccountByUserId(loggedInUser.getId()).getAccountNumber()}</h3>
+            <h3 class="card-title">ACC Bal : #{transaction.getBalance()}</h3>
             <!-- <h:outputText value="Shs. #{sessionScope.loggedInUser.account.accountBalance}" /> -->
         </div>
         <div class="card">
             <h3 class="card-title">RECENT DEPOSIT</h3>
-            <p class="card-content">$10,000</p>
+            <p class="card-content">Shs. #{loginForm.getMostRecentDepositAmountByAccountNumber()}</p>
         </div>
         <div class="card">
             <h3 class="card-title">RECENT WITHDRAW</h3>
             
-            <p class="card-content">Shs. 1500.0</p>
+            <p class="card-content">Shs. #{loginForm.getMostRecentWithdrawAmountByAccountNumber()}</p>
         </div>
         <div class="card">
             <h3 class="card-title">TOTAL TRANSACTIONS</h3>
-            <p class="card-content">10</p>
+            <p class="card-content">#{loginForm.getTotalTransactionsByAccountNumber()}</p>
         </div>
     </div>
 
-    <!-- <div class="datatable">
+    <div class="datatable">
         <h3>RECENT TRANSACTIONS</h3>
         
-        <h:dataTable value="#{transaction.allMembers}" var="account">
+        <h:dataTable value="#{loginForm.getTransactionsForLoggedInUser()}" var="transact">
     <h:column>
-        <f:facet name="header">ID</f:facet>
-        <h:outputText value="#{user.id}" />
-    </h:column>
-    <h:column>
-        <f:facet name="header">USERNAME</f:facet>
-        <h:outputText value="#{account.user.username}" />
-    </h:column>
-    <h:column>
-        <f:facet name="header">EMAIL</f:facet>
-        <h:outputText value="#{user.email}" />
-    </h:column>
-    <h:column>
-        <f:facet name="header">TRANSACTION TYPE</f:facet>
-        <h:outputText value="#{user.account.transactions[0].transactionType}" />
+        <f:facet name="header">TRANSACTION ID</f:facet>
+        <h:outputText value="#{transact.transactionId}" />
     </h:column>
     <h:column>
         <f:facet name="header">AMOUNT</f:facet>
-        <h:outputText value="#{user.account.transactions[0].amount}" />
+        <h:outputText value="#{transact.amount}" />
+    </h:column>
+    <h:column>
+        <f:facet name="header">TRANSACTION TYPE</f:facet>
+        <h:outputText value="#{transact.transactionType}" />
+    </h:column>
+    <h:column>
+        <f:facet name="header">DATE</f:facet>
+        <h:outputText value="#{transact.date}" />
     </h:column>
 </h:dataTable>
-    </div> -->
+
+    </div>
 </h:body>
 </html>

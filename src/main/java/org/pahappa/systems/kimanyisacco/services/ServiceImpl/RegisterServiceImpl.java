@@ -2,7 +2,7 @@ package org.pahappa.systems.kimanyisacco.services.ServiceImpl;
 
 import java.util.List;
 
-import org.mindrot.jbcrypt.BCrypt;
+import org.pahappa.systems.kimanyisacco.constants.Status;
 import org.pahappa.systems.kimanyisacco.dao.RegisterDao;
 import org.pahappa.systems.kimanyisacco.models.User;
 
@@ -10,27 +10,28 @@ import org.pahappa.systems.kimanyisacco.models.User;
 import org.pahappa.systems.kimanyisacco.services.RegisterService;
 
 public class RegisterServiceImpl implements RegisterService{
-    private List<User> AllAccounts;
     private final RegisterDao registerDao = new RegisterDao();
 
-    public User registerUser(User register){
-        register.setStatus("pending");
+    public User registerUser(User user){
+        user.setStatus(Status.PENDING.toString());
         // String hashedPassword = hashPassword(register.getPassword());
         // register.setPassword(hashedPassword);
-        return registerDao.registerUser(register);
+        return registerDao.registerUser(user);
     }
 
     public void updateUser(User user) {
+        user.setStatus(Status.APPROVED.toString());
         registerDao.updateUser(user);
     }
 
-    public void deleteUser(User user) {
-        registerDao.deleteUser(user);
+    public void rejectUser(User user) {
+        user.setStatus(Status.REJECTED.toString());
+        registerDao.rejectUser(user);
     }
 
     public List<User> getAllAccounts() {
-        AllAccounts = registerDao.getAllMembers();
-        return AllAccounts;
+        return registerDao.getAllMembers();
+        
     }
 
     public Long getTotalApprovedUsers() {
@@ -39,10 +40,16 @@ public class RegisterServiceImpl implements RegisterService{
     }
 
 
-public Long getTotalPendingUsers() {
+    public Long getTotalPendingUsers() {
     
         return registerDao.getTotalPendingUsers();
     }
+
+    public Long getTotalRejectedUsers() {
+    
+        return registerDao.getTotalRejectedUsers();
+    }
+
 
 public Long getTotalMembers() {
     return registerDao.getTotalMembers();
@@ -61,7 +68,6 @@ public Long getTotalDepositTransactions() {
 // }
 
 public List<User> getAllAccounts1() {
-    AllAccounts = registerDao.getAllMembers(); // Change to getAllMembers()
-    return AllAccounts;
+    return registerDao.getAllMembers(); 
 }
 }

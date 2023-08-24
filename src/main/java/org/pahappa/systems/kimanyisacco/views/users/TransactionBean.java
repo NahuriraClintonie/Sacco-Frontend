@@ -23,6 +23,8 @@ public class TransactionBean {
     private TransactionServiceImpl transactionService;
     private Account userAccount; // The user's account fetched from the database
     public RegisterServiceImpl registerService;
+    public User loggedInUser;
+    private Double balance;
 
     public TransactionBean() {
         registerService = new RegisterServiceImpl();
@@ -48,43 +50,58 @@ public class TransactionBean {
     }
 
     public Double getAccountBalance() {
-        if (userAccount != null) {
-            return userAccount.getAccountBalance();
-        }
-        return 0.0;
+            return userAccount.getAccountBalance();   
     }
 
+    public Double getBalance() {
+        System.out.println(loggedInUser.getId());
+            return transactionService.getAccountBalanceByUserId(loggedInUser.getId());   
+    }
+
+   
     public void saveTransaction() {
-        if (userAccount != null) {
+        Account account1 = fetchUserAccountFromSession();
+        if (account1 != null) {
             if ("deposit".equalsIgnoreCase(transactionType)) {
-                transactionService.saveDepositTransaction(userAccount, amount);
-                Double mostRecentWithdrawal = transactionService.getMostRecentWithdrawal(userAccount);
-                FacesContext facesContext = FacesContext.getCurrentInstance();
-                HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
-                session.setAttribute("mostRecentWithdrawal", mostRecentWithdrawal);
-                facesContext.addMessage("message", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success", "Deposit succesful"));
+                if(amount < 500.0){
+                    FacesContext facesContext = FacesContext.getCurrentInstance();
+                    facesContext.addMessage("message", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Invalid amount, the minimum deposit amount is Shs. 500.0"));
+                } else{
+                    
+                   transactionService.saveDepositTransaction(account1, amount);
+                   transactionService.updateAccountBalance(loggedInUser.getId(), amount);
+                   FacesContext facesContext = FacesContext.getCurrentInstance();
+                   facesContext.addMessage("message", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success", "Deposit succesful"));
+                }
+                
             } else if ("withdraw".equalsIgnoreCase(transactionType)) {
                 FacesContext facesContext = FacesContext.getCurrentInstance();
-                if (userAccount.getAccountBalance() < amount) {
-                    System.out.println(userAccount.getAccountBalance());
+                
+                
+                if (getBalance() < amount) {
                     
                     facesContext.addMessage("message", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Error", "Insufficient account balance, please try with a lower amount"));
-                } else {
-                    facesContext.addMessage("message", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success", "Successfully withdrawn "+amount+" from account number "+userAccount.getAccountNumber()));
-                    transactionService.saveWithdrawTransaction(userAccount, amount);
+                } 
+                else if((amount < 500.0)){
+                    facesContext.addMessage("message", new FacesMessage(FacesMessage.SEVERITY_ERROR,"ERROR", "Invalid amount, the minimum withdraw amount is Shs. 500.0"));
+                }
+                else {
+                    facesContext.addMessage("message", new FacesMessage(FacesMessage.SEVERITY_INFO,"Success", "Successfully withdrawn "+amount+" from your account"));
+                    transactionService.saveWithdrawTransaction(account1, amount);
+                    transactionService.updateAccountBalanceAfterWithdraw(loggedInUser.getId(),amount);
                 }
             }
         }
     }
 
-    private void fetchUserAccountFromSession() {
+    private Account fetchUserAccountFromSession() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
-        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        loggedInUser = (User) session.getAttribute("loggedInUser");
         if (loggedInUser != null) {
-            userAccount = accountService.getAccountByRegister(loggedInUser);
-            System.out.println(userAccount);
+            return accountService.getAccountByRegister(loggedInUser);
         }
+        return null;
     }
 
     public List<User> getAllMembers() {

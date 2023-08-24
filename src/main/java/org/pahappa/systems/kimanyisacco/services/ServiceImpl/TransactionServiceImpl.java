@@ -2,11 +2,12 @@ package org.pahappa.systems.kimanyisacco.services.ServiceImpl;
 
 import org.pahappa.systems.kimanyisacco.models.Account;
 import org.pahappa.systems.kimanyisacco.models.Transactions;
+import org.pahappa.systems.kimanyisacco.services.TransactionService;
 import org.pahappa.systems.kimanyisacco.dao.TransactionDao;
 
 import java.util.Date;
 
-public class TransactionServiceImpl {
+public class TransactionServiceImpl implements TransactionService{
     private TransactionDao transactionDao;
 
     public TransactionServiceImpl() {
@@ -19,13 +20,7 @@ public class TransactionServiceImpl {
         transaction.setTransactionType("Deposit");
         transaction.setAmount(amount);
         transaction.setDate(new Date());
-
-        double newBalance = account.getAccountBalance() + amount;
-        account.setAccountBalance(newBalance);
-
-        // Save the updated account and transaction
         transactionDao.saveTransaction(transaction);
-        transactionDao.updateAccount(account);
     }
 
     public void saveWithdrawTransaction(Account account, double amount) {
@@ -34,17 +29,23 @@ public class TransactionServiceImpl {
         transaction.setTransactionType("Withdraw");
         transaction.setAmount(amount);
         transaction.setDate(new Date());
-
-        double newBalance = account.getAccountBalance() - amount;
-        account.setAccountBalance(newBalance);
-
-        // Save the updated account and transaction
         transactionDao.saveTransaction(transaction);
-        transactionDao.updateAccount(account);
     }
 
-    // Method to get the most recent withdrawal amount for a given account
+    
     public Double getMostRecentWithdrawal(Account account) {
         return transactionDao.getMostRecentWithdrawal(account);
+    }
+
+    public void updateAccountBalance(Long userId, double amount) {
+        transactionDao.updateAccountBalanceAfterDeposit(userId,amount);
+    }
+
+    public void updateAccountBalanceAfterWithdraw(Long userId, double amount) {
+        transactionDao.updateAccountBalanceAfterWithdraw(userId,amount);
+    }
+
+    public Double getAccountBalanceByUserId(Long userId) {
+        return transactionDao.getAccountBalanceByUserId(userId);
     }
 }

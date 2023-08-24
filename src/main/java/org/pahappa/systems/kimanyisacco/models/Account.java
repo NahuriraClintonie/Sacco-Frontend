@@ -33,9 +33,10 @@ public class Account {
     }
 
     // account balance attribute
-    @Column(name = "account_balance", nullable = false)
+    
     private Double accountBalance;
 
+    @Column(name = "account_balance", nullable = false)
     public Double getAccountBalance() {
         return accountBalance;
     }

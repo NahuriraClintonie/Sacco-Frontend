@@ -57,4 +57,133 @@ public class TransactionDao {
         }
         return null;
     }
+
+    public void updateAccountBalanceAfterDeposit(Long userId, double amount) {
+        Session session = null;
+        Transaction transaction = null;
+
+        try {
+            session = SessionConfiguration.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+
+            // Query to find the corresponding Account based on the user_id
+            String hql = "FROM Account WHERE user.id = :userId";
+            Account account = (Account) session.createQuery(hql)
+                    .setParameter("userId", userId)
+                    .uniqueResult();
+
+            if (account != null) {
+                // Get the current account balance
+                double currentBalance = account.getAccountBalance();
+
+                // Update the account balance by adding the deposit amount
+                double updatedBalance = currentBalance + amount;
+                account.setAccountBalance(updatedBalance);
+
+                // Save the updated account back to the database
+                session.update(account);
+            } else {
+                // Handle the case when the account does not exist for the given user_id
+                // For example, throw an exception or log an error message
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    public void updateAccountBalanceAfterWithdraw(Long userId, double withdrawAmount) {
+        Session session = null;
+        Transaction transaction = null;
+
+        try {
+            session = SessionConfiguration.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+
+            // Query to find the corresponding Account based on the user_id
+            String hql = "FROM Account WHERE user.id = :userId";
+            Account account = (Account) session.createQuery(hql)
+                    .setParameter("userId", userId)
+                    .uniqueResult();
+
+            if (account != null) {
+                // Get the current account balance
+                double currentBalance = account.getAccountBalance();
+
+                // Check if the withdrawal amount is valid (not negative and less than the current balance)
+                if (withdrawAmount >= 0 && withdrawAmount <= currentBalance) {
+                    // Update the account balance by subtracting the withdrawal amount
+                    double updatedBalance = currentBalance - withdrawAmount;
+                    account.setAccountBalance(updatedBalance);
+
+                    // Save the updated account back to the database
+                    session.update(account);
+                } else {
+                    // Handle the case when the withdrawal amount is invalid
+                    // For example, throw an exception or log an error message
+                }
+            } else {
+                // Handle the case when the account does not exist for the given user_id
+                // For example, throw an exception or log an error message
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    public Double getAccountBalanceByUserId(Long userId) {
+        Session session = null;
+        Transaction transaction = null;
+
+        try {
+            session = SessionConfiguration.getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+
+            // Query to find the corresponding Account based on the user_id
+            String hql = "FROM Account WHERE user.id = :userId";
+            Account account = (Account) session.createQuery(hql)
+                    .setParameter("userId", userId)
+                    .uniqueResult();
+
+            if (account != null) {
+                // Retrieve the account balance
+                Double accountBalance = account.getAccountBalance();
+                return accountBalance;
+            } else {
+                // Handle the case when the account does not exist for the given user_id
+                // For example, throw an exception or log an error message
+                return null;
+            }
+
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    
 }

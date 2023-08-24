@@ -130,6 +130,7 @@
                     <div class="report-body">
                         <div class="report-topic-heading">
                             <h3 class="t-op">Approved Members</h3>
+                            <h3 class="t-op">Rejected Members</h3>
                             <h3 class="t-op">Pending Members</h3>
                             <h3 class="t-op">Total Members</h3>
                         </div>
@@ -137,7 +138,7 @@
                         <div class="items">
                             <div class="item1">
                                 <h3 class="t-op-nextlvl">#{adminBean.getTotalApprovedUsers()}</h3>
-                                <!-- <h3 class="t-op-nextlvl"><h:outputText value="#{adminBean.getTotalApprovedUsers()}"/></h3> -->
+                                <h3 class="t-op-nextlvl">#{adminBean.getTotalRejectedUsers()}</h3>
                                 <h3 class="t-op-nextlvl">#{adminBean.getTotalPendingUsers()}</h3>
                                 <h3 class="t-op-nextlvl">#{adminBean.getTotalMembers()}</h3>
                                 
@@ -149,7 +150,7 @@
 
                 <div class="datatable">
                     <h3 class="recent-Articles">MEMBER REGISTRATIONS</h3>
-                    <h:dataTable value="#{adminBean.allAccounts}" var="account">
+                    <h:dataTable value="#{adminBean.getAllAccounts()}" var="account">
         <h:column>
             <f:facet name="header">NAME</f:facet>
             <h:outputText value="#{account.user.username}" />
@@ -169,8 +170,8 @@
         <h:column>
             <f:facet name="header">Action</f:facet>
             <h:panelGroup>
-                <p:commandButton value="Approve" action="#{adminBean.approveUser(account.user)}" icon="pi pi-check" disabled="#{account.user.status eq 'Approved'}"/>
-                <p:commandButton value="Reject" action="#{adminBean.rejectUser(account.user)}" icon="pi pi-times" disabled="#{account.user.status eq 'Approved'}"/>
+                <p:commandButton value="Approve" action="#{adminBean.approveUser(account.user)}" icon="pi pi-check" disabled="#{account.user.status eq 'APPROVED' or account.user.status eq 'REJECTED'}"/>
+                <p:commandButton value="Reject" action="#{adminBean.rejectUser(account.user)}" icon="pi pi-times" disabled="#{account.user.status eq 'APPROVED' or account.user.status eq 'REJECTED'}"/>
                 
             </h:panelGroup>
         </h:column>
@@ -180,21 +181,6 @@
         </div>
         
     </h:form>
-    <p:dialog id="userDetailsDialog" header="User Details" widgetVar="userDetailsDlg" modal="true" dynamic="true" showEffect="fade" hideEffect="fade">
-    <!-- Display the user details here -->
-    <h:panelGrid columns="2" cellpadding="5">
-        <h:outputText value="Username:" />
-        <h:outputText value="#{adminBean.selectedUser.username}" />
-
-        <h:outputText value="Email:" />
-        <h:outputText value="#{adminBean.selectedUser.email}" />
-
-        <h:outputText value="Gender:" />
-        <h:outputText value="#{adminBean.selectedUser.gender}" />
-
-        <!-- Add other user details here -->
-    </h:panelGrid>
-</p:dialog>
 
     <h:outputScript library="js" name="index.js"/>
 </body>

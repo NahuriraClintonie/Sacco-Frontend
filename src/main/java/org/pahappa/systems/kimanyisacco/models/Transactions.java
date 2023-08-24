@@ -17,6 +17,7 @@ public class Transactions {
         return transactionId;
     }
 
+
     public void setTransactionId(Long transactionId) {
         this.transactionId = transactionId;
     }

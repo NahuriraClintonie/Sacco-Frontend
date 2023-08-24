@@ -1,5 +1,6 @@
 package org.pahappa.systems.kimanyisacco.views.users;
 
+import org.pahappa.systems.kimanyisacco.constants.Gender;
 import org.pahappa.systems.kimanyisacco.models.Account;
 import org.pahappa.systems.kimanyisacco.models.User;
 import org.pahappa.systems.kimanyisacco.navigation.Navigation;
@@ -10,7 +11,9 @@ import org.pahappa.systems.kimanyisacco.views.authentication.LoginForm;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 @ManagedBean(name="registerBean")
 @SessionScoped
@@ -19,6 +22,7 @@ public class RegisterBean {
     RegisterServiceImpl registerService;
     AccountServiceImpl accountService;
     LoginForm loginf;
+ 
 
     public RegisterBean() {
         user = new User();
@@ -26,6 +30,8 @@ public class RegisterBean {
         accountService = new AccountServiceImpl();
         loginf = new LoginForm();
     }
+    
+    
 
     public User getUser() {
         return user;
@@ -35,7 +41,9 @@ public class RegisterBean {
         this.user = user;
     }
 
+
     public void registerUser() {
+        //user.setGender(gender);
         User registeredUser = registerService.registerUser(user);
         if (registeredUser != null) {
             FacesContext context = FacesContext.getCurrentInstance();  
@@ -50,8 +58,31 @@ public class RegisterBean {
             }
         } else {
             FacesContext context = FacesContext.getCurrentInstance();  
-            context.addMessage("registermessage", new FacesMessage("Error", "Registration failed. Please try again"));  
-        }
+            context.addMessage("registermessage", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Registration Failed", "Username already exists"));
+            }
         
     }
+
+    // public Double getAccountBalanceByUserId(){
+    //     return registerService.getAccountBalanceByUserId
+    // }
+
+    public void validateEmail(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+        String email = (String) value;
+        if (email != null && !email.isEmpty()) {
+            // You can add your custom email validation logic here
+            if (!isValidEmail(email)) {
+                //FacesContext context = FacesContext.getCurrentInstance();  
+                context.addMessage("message", new FacesMessage(FacesMessage.SEVERITY_ERROR,"Invalid Email format", "Please enter a valid email address of the format example@gmail.com"));
+            
+                // FacesMessage message = new FacesMessage("Error","Invalid Email format. Please enter a valid email address of the format example@gmail.com");
+                // throw new ValidatorException(message);
+            }
+        }
+    }
+
+        private boolean isValidEmail(String email) {
+            return email.contains("@") && email.contains(".");
+        }
+
 }

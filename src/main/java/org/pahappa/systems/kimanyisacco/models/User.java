@@ -1,6 +1,10 @@
 package org.pahappa.systems.kimanyisacco.models;
 
+import java.util.Date;
+
 import javax.persistence.*;
+
+import org.pahappa.systems.kimanyisacco.constants.Gender;
 
 @Entity
 @Table(name = "users")
@@ -9,11 +13,11 @@ public class User {
     private Long id;
     private String username;
     private String password;
-    private String dateOfBirth;
-    private String gender;
+    private Date dateOfBirth;
+    private Gender gender;
     private String email;
     private String physicalAddress;
-    private String accountNumber;
+    // private String accountNumber;
     private String status;
     private Account account;
 
@@ -47,20 +51,21 @@ public class User {
     }
 
     @Column(name = "date_of_birth")
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
     @Column(nullable = true, name = "gender")
-    public String getGender() {
+    @Enumerated(EnumType.STRING)
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
@@ -82,14 +87,17 @@ public class User {
         this.physicalAddress = physicalAddress;
     }
 
-    @Transient
-    public String getAccountNumber() {
-        return accountNumber;
-    }
+    // @Transient
+    // public String getAccountNumber() {
+    //     if (account != null) {
+    //         return account.getAccountNumber();
+    //     }
+    //     return null;
+    // }
 
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
+    // public void setAccountNumber(String accountNumber) {
+    //     this.accountNumber = accountNumber;
+    // }
 
     @Column(name = "status")
     public String getStatus() {

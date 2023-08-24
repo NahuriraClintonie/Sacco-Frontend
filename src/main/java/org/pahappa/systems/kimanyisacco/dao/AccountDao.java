@@ -26,6 +26,8 @@ public class AccountDao {
         }
     }
 
+    
+
     // Method to fetch the Account associated with a Register object
     public Account getAccountByRegister(User registeredUser) {
         Session session = SessionConfiguration.getSessionFactory().openSession();

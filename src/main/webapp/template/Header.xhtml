@@ -41,21 +41,22 @@
                             <h:outputText value="WITHDRAW" escape="false" />
                     </h:link>
                 </li> -->
-                <li>
+                <!-- <li>
                
                     <h:link outcome="#{navigation.getSettings()}">
                             <i class="fa fa-home"></i>
                             <h:outputText value="SETTINGS" escape="false" />
                     </h:link>
                 
-                </li>
+                </li> -->
 
                 <li>
-               
-                    <h:link outcome="#{navigation.getLogin()}">
+               <h:form>
+                    <h:commandLink action="#{loginForm.logout}">
                             <i class="fa fa-home"></i>
                             <h:outputText value="LOGOUT" escape="false" />
-                    </h:link>
+                    </h:commandLink>
+                </h:form>
                 
                 </li>
             </ul>

@@ -1,5 +1,6 @@
 package org.pahappa.systems.kimanyisacco.views;
 
+
 import org.pahappa.systems.kimanyisacco.models.User;
 import org.pahappa.systems.kimanyisacco.services.ServiceImpl.RegisterServiceImpl;
 
@@ -11,12 +12,6 @@ import java.util.List;
 @SessionScoped
 public class AdminBean {
     private RegisterServiceImpl registerService;
-    private List<User> allMembers;
-    private Long totalApprovedUsers;
-    private Long totalPendingUsers;
-    private Long totalMembers;
-    private Long totalWithdrawTransactions;
-    private Long totalDepositTransactions;
     
 
     public AdminBean() {
@@ -24,57 +19,64 @@ public class AdminBean {
     }
 
     public List<User> getAllAccounts() {
-        if (allMembers == null) {
-            allMembers = registerService.getAllAccounts();
-        }
-        return allMembers;
+        return registerService.getAllAccounts();
     }
 
     
 
     public void approveUser(User user) {
-        user.setStatus("Approved");
         registerService.updateUser(user);
     }
 
     public void rejectUser(User user) {
-        registerService.deleteUser(user);
-        allMembers.remove(user);
+        registerService.rejectUser(user);
     }
 
     public Long getTotalApprovedUsers() {
-        if (totalApprovedUsers == null) {
-            totalApprovedUsers = registerService.getTotalApprovedUsers();
-        }
-        System.out.println(totalApprovedUsers);
-        return totalApprovedUsers;
+        // if (totalApprovedUsers == null) {
+        //     totalApprovedUsers = registerService.getTotalApprovedUsers();
+        //     return totalApprovedUsers;
+        // }
+        // System.out.println(totalApprovedUsers);
+        return registerService.getTotalApprovedUsers();
     }
 
     public Long getTotalPendingUsers() {
-        if (totalPendingUsers == null) {
-            totalPendingUsers = registerService.getTotalPendingUsers();
-        }
-        return totalPendingUsers;
+        // if (totalPendingUsers == null) {
+        //     totalPendingUsers = registerService.getTotalPendingUsers();
+        //     // return totalPendingUsers;
+        // }
+        return registerService.getTotalPendingUsers();
+    }
+
+    public Long getTotalRejectedUsers() {
+        // if (totalPendingUsers == null) {
+        //     totalPendingUsers = registerService.getTotalPendingUsers();
+        //     // return totalPendingUsers;
+        // }
+        return registerService.getTotalRejectedUsers();
     }
 
     public Long getTotalMembers() {
-        if (totalMembers == null) {
-            totalMembers = registerService.getTotalMembers();
-        }
-        return totalMembers;
+        // if (totalMembers == null) {
+        //     totalMembers = registerService.getTotalMembers();
+        // }
+        return registerService.getTotalMembers();
     }
 
     public Long getTotalWithdrawTransactions() {
-        if (totalWithdrawTransactions == null) {
-            totalWithdrawTransactions = registerService.getTotalWithdrawTransactions();
-        }
-        return totalWithdrawTransactions;
+        // if (totalWithdrawTransactions == null) {
+        //     totalWithdrawTransactions = registerService.getTotalWithdrawTransactions();
+        // }
+        return registerService.getTotalWithdrawTransactions();
     }
 
     public Long getTotalDepositTransactions() {
-        if (totalDepositTransactions == null) {
-            totalDepositTransactions = registerService.getTotalDepositTransactions();
-        }
-        return totalDepositTransactions;
+        // if (totalDepositTransactions == null) {
+        //     totalDepositTransactions = registerService.getTotalDepositTransactions();
+        // }
+        return registerService.getTotalDepositTransactions();
     }
+
+    
 }

@@ -8,38 +8,51 @@
     <h:outputStylesheet name="css/App.css" />
 </h:head>
 <h:body>
+    
     <div class="center-form">
         <div class="register-form-container">
             <h:form>
+                <p:growl id="growl" showDetail="true" />
                 <div class="register-form-input">
                     <h:outputLabel for="username" value="Username:" />
-                    <h:inputText id="username" placeholder="Username" value="#{registerBean.user.username}"/>
+                    <h:inputText id="username" placeholder="Username" required="true" requiredMessage="Username can not be empty" value="#{registerBean.user.username}"/>
                 </div>
                 <div class="register-form-input">
                     <h:outputLabel for="password" value="Password:" />
-                    <h:inputSecret id="password" placeholder="Password" value="#{registerBean.user.password}"/>
+                    <h:inputSecret id="password" placeholder="Password" required="true" requiredMessage="password can not be empty"  value="#{registerBean.user.password}"/>
                 </div>
                 <div class="register-form-input">
                     <h:outputLabel for="email" value="E-mail:" />
-                    <h:inputText id="email" placeholder="email" type="email" value="#{registerBean.user.email}"/>
+                    <h:inputText id="email" placeholder="email" type="email" required="true" requiredMessage="Email can not be empty" validator="#{registerBean.validateEmail}" value="#{registerBean.user.email}"/>
                 </div>
+
                 <div class="register-form-input">
-                    <h:outputLabel for="dateOfBirth" value="Date of Birth:" />
-                    <h:inputText id="dateOfBirth" type="date" value="#{registerBean.user.dateOfBirth}"/>
+                    <h:outputLabel value="Date of Birth:" />
+
+                    <p:calendar id="datePicker" value="#{registerBean.user.dateOfBirth}" 
+                    pattern="dd/MM/yyyy" 
+                    mindate="01/01/1940" 
+                    maxdate="31/12/2010" 
+                    yearRange="1940:2010"
+                    showButtonPanel="true" />
+                    
                 </div>
+                
                 <div class="register-form-input">
                     <h:outputLabel value="Gender:" />
-                    <h:selectOneRadio id="gender" value="#{registerBean.user.gender}">
-                        <f:selectItem itemValue="male" itemLabel="Male" />
-                        <f:selectItem itemValue="female" itemLabel="Female" />
+                    <h:selectOneRadio id="gender" value="#{registerBean.user.gender}" required="true" requiredMessage="Please specify the gender" >
+                        <f:selectItem itemValue="MALE" itemLabel="Male" />
+                        <f:selectItem itemValue="FEMALE" itemLabel="Female" />
+    
                     </h:selectOneRadio>
                 </div>
+                
                 <div class="register-form-input">
                     <h:outputLabel for="physicalAddress" value="Physical Address:" />
-                    <h:inputText id="physicalAddress" value="#{registerBean.user.physicalAddress}"/>
+                    <h:inputText id="physicalAddress" value="#{registerBean.user.physicalAddress}" required="true" requiredMessage="Address can not be empty"/>
                 </div>
                 <div class="register-form-input button-wrapper">
-                    <h:commandButton value="Register" styleClass="blue-button" action="#{registerBean.registerUser}" update="registermessage"/>
+                    <h:commandButton value="Register" styleClass="blue-button" action="#{registerBean.registerUser}" update="registermessage growl"/>
                 </div>
             </h:form>
         </div>

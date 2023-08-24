@@ -2,10 +2,11 @@ package org.pahappa.systems.kimanyisacco.services.ServiceImpl;
 
 import org.pahappa.systems.kimanyisacco.models.Account;
 import org.pahappa.systems.kimanyisacco.models.User;
+import org.pahappa.systems.kimanyisacco.services.AccountService;
 import org.pahappa.systems.kimanyisacco.dao.AccountDao;
 import java.util.Random;
 
-public class AccountServiceImpl {
+public class AccountServiceImpl implements AccountService{
     private AccountDao accountDao;
 
     public AccountServiceImpl() {
@@ -13,6 +14,7 @@ public class AccountServiceImpl {
     }
 
     // Method to create and save an account for a registered user
+    @Override
     public Account createAccountForUser(User registeredUser) {
         Account account = new Account();
         account.setUser(registeredUser);
@@ -22,6 +24,7 @@ public class AccountServiceImpl {
     }
 
     // Method to get the Account associated with a Register object
+    @Override
     public Account getAccountByRegister(User registeredUser) {
         return accountDao.getAccountByRegister(registeredUser);
     }
@@ -38,4 +41,6 @@ public class AccountServiceImpl {
         // Concatenate the pattern with the random number
         return accountPattern + String.format("%04d", randomNumber);
     }
+
+    
 }

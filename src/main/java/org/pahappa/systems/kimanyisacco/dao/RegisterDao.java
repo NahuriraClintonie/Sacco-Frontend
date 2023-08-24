@@ -6,7 +6,6 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.sql.Update;
 import org.pahappa.systems.kimanyisacco.config.SessionConfiguration;
 import org.pahappa.systems.kimanyisacco.models.User;
 
@@ -48,14 +47,12 @@ public class RegisterDao {
         }
     }
 
-    public void deleteUser(User user) {
+    public void rejectUser(User user) {
         Transaction transaction = null;
+
         try {
             Session session = SessionConfiguration.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-
-            // Delete the user from the database
-            session.delete(user);
 
             transaction.commit();
         } catch (Exception e) {
@@ -93,6 +90,19 @@ public class RegisterDao {
         try {
             Session session = SessionConfiguration.getSessionFactory().openSession();
             Query query = session.createQuery("SELECT COUNT(u) FROM User u WHERE u.status = 'pending' AND u.username <> 'admin'");
+            Long result = (Long) query.uniqueResult();
+            session.close();
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Long getTotalRejectedUsers() {
+        try {
+            Session session = SessionConfiguration.getSessionFactory().openSession();
+            Query query = session.createQuery("SELECT COUNT(u) FROM User u WHERE u.status = 'Rejected' AND u.username <> 'admin'");
             Long result = (Long) query.uniqueResult();
             session.close();
             return result;
